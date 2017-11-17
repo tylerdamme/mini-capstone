@@ -9,6 +9,7 @@ puts "[1] View all games"
 puts "[2] Add a game to the database"
 puts "[3] Select an individual game" 
 puts "[4] Update the information for a game"
+puts "[5] Delete a game from the database"
 input_option = gets.chomp
 
 if input_option == "1"
@@ -53,6 +54,11 @@ elsif input_option == "4"
   response = Unirest.patch("http://localhost:3000/v1/products/#{product_id}", parameters: params)
   product = response.body
   pp product
+elsif input_option == "5"
+  puts "Which game would you like to delete?"
+  product_id = gets.chomp
+  response = Unirest.delete("http://localhost:3000/v1/products/#{product_id}")
+  pp response.body
 end
 
 
