@@ -40,17 +40,22 @@ elsif input_option == "3"
 elsif input_option == "4"
   print "Which game would you like to update? id: "
   product_id = gets.chomp
+  response = Unirest.get("http://localhost:3000/v1/products/#{product_id}")
+  product = response.body
   params = {}
-  print "Enter the updated game title: "
+  print "Enter the updated game title (#{product["name"]}): "
   params["name"] = gets.chomp
-  print "Enter the updated game console: "
+  print "Enter the updated game console (#{product["console"]}): "
   params["console"] = gets.chomp
-  print "Enter the updated game price: "
+  print "Enter the updated game price (#{product["price"]}): "
   params["price"] = gets.chomp
-  print "Enter the updated game image: "
+  print "Enter the updated game image (#{product["image"]}): "
   params["image"] = gets.chomp
-  print "Enter the updated game description: "
+  print "Enter the updated game description (#{product["description"]}): "
   params["description"] = gets.chomp
+  print "Enter true to make item in stock, or false if out of stock (#{product["instock"]}): "
+  params["instock"] = gets.chomp
+  params.delete_if { |_key, value| value.empty? }
   response = Unirest.patch("http://localhost:3000/v1/products/#{product_id}", parameters: params)
   product = response.body
   pp product

@@ -1,4 +1,10 @@
 class Product < ApplicationRecord
+
+  validates :name, uniqueness: true
+  validates :name, :console, :price, presence: true
+  validates :price, numericality: {greater_than: 0}
+  validates :description, length: {maximum: 500}
+
   def is_discounted
     if price.to_i < 20
       true
@@ -17,6 +23,7 @@ class Product < ApplicationRecord
 
   def as_json
     {
+    id: id,
     name: name,
     console: console,
     description: description,
@@ -24,7 +31,8 @@ class Product < ApplicationRecord
     price: price,
     tax: tax,
     total: total,
-    is_discounted: is_discounted
+    is_discounted: is_discounted,
+    instock: instock
   }
   end
 
