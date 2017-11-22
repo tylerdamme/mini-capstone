@@ -30,7 +30,13 @@ elsif input_option == "2"
   params["description"] = gets.chomp
   response = Unirest.post("http://localhost:3000/v1/products", parameters: params)
   product = response.body
-  pp product
+  if product["errors"]
+    puts "Your product has errors!"
+    pp product["errors"]
+  else
+    puts "Your product has been successfully created!"
+    pp product
+  end
 elsif input_option == "3"
   print "Which id would you like to view? "
   product_id = gets.chomp
@@ -58,7 +64,13 @@ elsif input_option == "4"
   params.delete_if { |_key, value| value.empty? }
   response = Unirest.patch("http://localhost:3000/v1/products/#{product_id}", parameters: params)
   product = response.body
-  pp product
+  if product["errors"]
+    puts "Your updated product has errors!"
+    pp product["errors"]
+  else
+    puts "Your product was successfully updated!"
+    pp product
+  end
 elsif input_option == "5"
   puts "Which game would you like to delete?"
   product_id = gets.chomp
