@@ -6,6 +6,8 @@ system "clear"
 puts "Welcome to the mini-captone app!"
 puts "Please select an option"
 puts "[1] View all games"
+puts "  [1.1] Search products by title"
+puts "  [1.2] Show all items by price"
 puts "[2] Add a game to the database"
 puts "[3] Select an individual game" 
 puts "[4] Update the information for a game"
@@ -14,6 +16,18 @@ input_option = gets.chomp
 
 if input_option == "1"
   response = Unirest.get("http://localhost:3000/v1/products")
+  products = response.body
+  pp products
+elsif input_option == "1.1"
+  print "Please enter search terms: "
+  search_terms = gets.chomp
+  puts "Here are the matching products"
+  # response = Unirest.get("http://localhost:3000/v1/products?search=#{search_terms}")
+  response = Unirest.get("http://localhost:3000/v1/products", parameters: {search: search_terms})
+  products = response.body
+  pp products
+elsif input_option == "1.2"
+  response = Unirest.get("http://localhost:3000/v1/products", parameters: {search_price: :true})
   products = response.body
   pp products
 elsif input_option == "2"
