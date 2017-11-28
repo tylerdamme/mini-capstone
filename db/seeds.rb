@@ -17,6 +17,16 @@
 #   product_id: 3
 #   })
 
+# Image.create({
+#   url: "https://i.pinimg.com/originals/e3/91/52/e39152dc1f2daf704e568d71c4cbbbf3.png",
+#   product_id: 1
+#   })
+
+# Image.create({
+#   url: "https://upload.wikimedia.org/wikipedia/en/9/9b/NCAA_Football_14_Cover.jpg",
+#   product_id: 5
+#   })
+
 # Supplier.create({name: "Nintendo", email: "nintendo@email.com", phone_number: "222-222-2222"})
 # Supplier.create({name: "Fraxis", email: "fraxis@email.com", phone_number: "999-999-9999"})
 # Supplier.create({name: "EA Sports", email: "easports@email.com", phone_number: "888-888-8888"})
