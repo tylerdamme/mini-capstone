@@ -5,6 +5,14 @@ class Product < ApplicationRecord
   validates :price, numericality: {greater_than: 0}
   validates :description, length: {maximum: 500}
 
+  def supplier
+    Supplier.find_by(id: supplier_id)
+  end
+
+  def images
+    Image.where(product_id: id)
+  end
+
   def is_discounted
     if price.to_i < 20
       true
@@ -27,13 +35,14 @@ class Product < ApplicationRecord
     name: name,
     console: console,
     description: description,
-    image: image,
+    images: images.map { |image| image.url },
     price: price,
     tax: tax,
     total: total,
     is_discounted: is_discounted,
-    instock: instock
-  }
+    instock: instock,
+    supplier: supplier.as_json
+    }
   end
 
 end
