@@ -15,7 +15,6 @@ class V1::ProductsController < ApplicationController
       name: params["name"],
       console: params["console"],
       price: params["price"],
-      image: params["image"],
       description: params["description"],
       instock: params["instock"]
       )
