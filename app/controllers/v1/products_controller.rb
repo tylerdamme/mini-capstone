@@ -1,4 +1,6 @@
 class V1::ProductsController < ApplicationController
+  before_action :authenticate_admin, except: [:index, :show]
+
 
   def index
     products = Product.all.order(:id => :asc)
@@ -37,7 +39,6 @@ class V1::ProductsController < ApplicationController
     product.name = params["name"] || product.name
     product.console = params["console"] || product.console
     product.price = params["price"] || product.price
-    product.image = params["image"] || product.image
     product.description = params["description"] || product.description
     product.instock = params["instock"] || product.instock
     if product.save
