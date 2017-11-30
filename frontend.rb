@@ -12,7 +12,8 @@ while true
   puts "[2] Add a game to the database"
   puts "[3] Select an individual game" 
   puts "[4] Update the information for a game"
-  puts "[5] Delete a game from the database"
+  puts "[5] Delete a game from the database" 
+  puts "[6] View all orders"
   puts 
   puts "[signup] Signup (create new user)"
   puts "[login] Login"
@@ -112,6 +113,10 @@ while true
     product_id = gets.chomp
     response = Unirest.delete("http://localhost:3000/v1/products/#{product_id}")
     pp response.body
+  elsif input_option == "6"
+    response = Unirest.get("http://localhost:3000/v1/orders")
+    orders = response.body
+    pp orders
   elsif input_option == "signup"
     params = {}
     print "Enter a name: "
