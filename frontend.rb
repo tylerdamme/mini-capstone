@@ -68,13 +68,17 @@ while true
     print "Purchase item? (y/n): "
     purchase_input = gets.chomp
     if purchase_input == "y"
-      params = {}
       print "How many copies would you like to order: "
-      params["quantity"] = gets.chomp
-      params["product_id"] = product_id
+      quantity = gets.chomp
+      params = {
+        quantity: quantity,
+        product_id: product_id
+      }
       response = Unirest.post("http://localhost:3000/v1/orders", parameters: params)
       order = response.body
-    elsif purchase_input == "n"
+      pp order
+    # elsif purchase_input == "n"
+    end
   elsif input_option == "4"
     print "Which game would you like to update? id: "
     product_id = gets.chomp

@@ -2,7 +2,7 @@ class V1::OrdersController < ApplicationController
   def create
     product = Product.find_by(id: params[:product_id])
 
-    subtotal = product.price * params["quantity"]
+    subtotal = product.price * params["quantity"].to_d
     tax = subtotal * 0.09
     total = subtotal + tax
 
@@ -11,7 +11,16 @@ class V1::OrdersController < ApplicationController
       product_id: params["product_id"],
       quantity: params["quantity"],
       total: total
-
     )
+    if order.save
+      render json: order.as_json
+    else
+      render json: {errors: order.errors.full_messages}, status: :bad_request
+    end
+  end
+
+  def index
+    orders = current_user.orders
+    render json: orders.as_json
   end
 end
