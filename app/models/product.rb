@@ -6,18 +6,20 @@ class Product < ApplicationRecord
   validates :description, length: {maximum: 500}
 
   has_many :category_products
-
   belongs_to :supplier
   # def supplier
   #   Supplier.find_by(id: supplier_id)
   # end
-
   has_many :images
   # def images
   #   Image.where(product_id: id)
   # end
-
   has_many :orders
+
+  has_many :categories, through: :category_products
+  # def categories
+  #   category_productsmap {|category_product| category_product.category}
+  # end
 
   def is_discounted
     if price.to_i < 20
@@ -47,7 +49,8 @@ class Product < ApplicationRecord
     total: total,
     is_discounted: is_discounted,
     instock: instock,
-    supplier: supplier.as_json
+    supplier: supplier.as_json,
+    categories: categories.as_json
     }
   end
 

@@ -8,6 +8,9 @@ class V1::ProductsController < ApplicationController
       products = products.where("name ILIKE ?", "%#{params[:search]}%")
     elsif params[:search_price]
       products = Product.order(:price => :asc)
+    elsif params[:category_id]
+      category = Category.find_by(id: params[:category_id])
+      products = category.products
     end
     render json: products.as_json
   end
