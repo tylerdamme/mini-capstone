@@ -5,6 +5,8 @@ class Product < ApplicationRecord
   validates :price, numericality: {greater_than: 0}
   validates :description, length: {maximum: 500}
 
+  has_many :category_products
+
   belongs_to :supplier
   # def supplier
   #   Supplier.find_by(id: supplier_id)
