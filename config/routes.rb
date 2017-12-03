@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   post 'user_token' => 'user_token#create'
   namespace :v1 do
 
+    post "/cartedproducts" => "carted_products#create"
+    get "/cartedproducts" => "carted_products#index"
+
     post "/users" => "users#create"
     get "/products" => "products#index"
     post "/products" => "products#create"

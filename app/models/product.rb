@@ -5,6 +5,7 @@ class Product < ApplicationRecord
   validates :price, numericality: {greater_than: 0}
   validates :description, length: {maximum: 500}
 
+  has_many :carted_products
   has_many :category_products
   belongs_to :supplier
   # def supplier
@@ -18,7 +19,7 @@ class Product < ApplicationRecord
 
   has_many :categories, through: :category_products
   # def categories
-  #   category_productsmap {|category_product| category_product.category}
+  #   category_products.map {|category_product| category_product.category}
   # end
 
   def is_discounted
