@@ -15,7 +15,7 @@ class V1::CartedProductsController < ApplicationController
   end
 
   def index
-    cartedproducts = current_user.carted_products
+    cartedproducts = current_user.carted_products.where(status: "carted")
     render json: cartedproducts.as_json
   end
 

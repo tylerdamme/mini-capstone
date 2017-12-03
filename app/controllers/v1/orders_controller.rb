@@ -9,7 +9,6 @@ class V1::OrdersController < ApplicationController
       sum += carted_product.quantity * carted_product.product.price
     end
 
-
     tax = sum * 0.09
     total = sum + tax
     
@@ -19,7 +18,7 @@ class V1::OrdersController < ApplicationController
       tax: tax,
       total: total
     )
-   
+    
     if order.save
       carted_products.update_all(status: "purchased", order_id: order.id)
       render json: order.as_json
