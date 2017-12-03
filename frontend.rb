@@ -17,6 +17,7 @@ while true
   puts "[4] Update the information for a game" if jwt != ""
   puts "[5] Delete a game from the database"  if jwt != ""
   puts "[6] View your cart" if jwt != ""
+  puts "[7] Remove item from cart"
   puts 
   puts "[signup] Signup (create new user)"
   puts "[login] Login"
@@ -120,6 +121,19 @@ while true
     response = Unirest.get("http://localhost:3000/v1/cartedproducts")
     carted_products = response.body
     pp carted_products
+    puts
+    print "Would you like to place your order? (y/n): "
+    input_option = gets.chomp
+    if input_option == "y"
+      response = Unirest.post("http://localhost:3000/v1/orders")
+      order = response.body
+      pp order
+    end
+  elsif input_option == "7"
+    puts "Which item you you like to remove?"
+    carted_product_id = gets.chomp
+    response = Unirest.delete("http://localhost:3000/v1/cartedproducts/#{carted_product_id}")
+    pp response.body
   elsif input_option == "signup"
     params = {}
     print "Enter a name: "
